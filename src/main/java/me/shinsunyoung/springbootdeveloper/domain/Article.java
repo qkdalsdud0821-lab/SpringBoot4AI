@@ -4,7 +4,12 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;import org.springframework.data.annotation.CreatedDate;import org.springframework.data.annotation.LastModifiedBy;import org.springframework.data.annotation.LastModifiedDate;import org.springframework.data.jpa.domain.support.AuditingEntityListener;import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -22,11 +27,8 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Builder
-    public Article(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -34,10 +36,18 @@ public class Article {
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
-    public void update(String title, String content) {
+    @Builder
+    public Article(String title, String content, String imageUrl) {
         this.title = title;
         this.content = content;
+        this.imageUrl = imageUrl;
+    }
+
+    public void update(String title, String content, String imageUrl) {
+        this.title = title;
+        this.content = content;
+        this.imageUrl = imageUrl;
     }
 }
